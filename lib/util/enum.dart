@@ -1,0 +1,1 @@
+enum VerificationOtpType { none, forgotPassword, approve, approveAndLogin }

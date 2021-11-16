@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "361728647873",
+    "project_id": "freibr",
+    "storage_bucket": "freibr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361728647873:android:c16e9db142c98b9d45ea40",
+        "android_client_info": {
+          "package_name": "com.metron.freibr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361728647873-e6e4hf05th9jeg1j2ji7ra63luqsi901.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.metron.freibr",
+            "certificate_hash": "e0607e23764b08379f90ab0d99d9cdde035f2a1a"
+          }
+        },
+        {
+          "client_id": "361728647873-eqqhpfh35suapejsbagn5tcgjd45to4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1rc7nbveNBz9g4Bu6e3DP1HsKtoL3vNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361728647873-eqqhpfh35suapejsbagn5tcgjd45to4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
