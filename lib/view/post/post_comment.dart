@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:freibr/common/images.dart';
 import 'package:freibr/common/widget/FRCommentListTile.dart';
 import 'package:freibr/common/widget/FREmpty.dart';
@@ -37,26 +38,6 @@ class PostCommentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _controller = Provider.of<PostCommentsController>(context);
-    void _showPopupMenu(int index) async {
-      final screenSize = MediaQuery.of(context).size;
-      await showMenu(
-        context: context,
-        position: RelativeRect.fromLTRB(100, 100, 0, 0),
-        items: [
-          PopupMenuItem<String>(
-            child: TextButton(
-                onPressed: () {
-                  _controller.commentDelete(this.post.id,_controller.postComments.data[index].id);
-                  print(this.post.id);
-                  print(_controller.postComments.data[index].id);
-                },
-                child: Text('DELETE')),
-            value: 'DELETE',
-          ),
-        ],
-        elevation: 8.0,
-      );
-    }
     return StatefulWrapper(
         onInit: () {
           _scrollController = ScrollController();
@@ -113,25 +94,53 @@ class PostCommentView extends StatelessWidget {
                                     child: frCircularLoader(
                                         height: 30, width: 30)));
                           }
-                          return InkWell(
-                            onTap: (){
-print("CLESSSICK");
-_showPopupMenu(index);
-                            },
-                            child: FRUserListCommentTile(
-                              user: _controller.postComments.data[index].user,
-                              title: RichText(
-                                text: TextSpan(
-                                  text:
-                                      '${_controller.postComments.data[index].user.name} ',
-                                  style: Get.textTheme.button,
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: _controller
-                                          .postComments.data[index].comment,
-                                      style: Get.textTheme.bodyText2,
-                                    ),
-                                  ],
+                          return        Slidable(
+                            key: const ValueKey(0),
+                            startActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              dismissible: DismissiblePane(onDismissed: () {
+                               _controller.commentDelete(post.id,_controller.postComments.data[index].id);
+                              }),
+                              children: const [
+                                SlidableAction(
+                                  onPressed: null,
+                                  backgroundColor: Color(0xFFFE4A49),
+                                  foregroundColor: Colors.white,
+                                  icon: Icons.delete,
+                                  label: 'Delete',
+                                ),
+                              ],
+                            ),
+                            endActionPane: const ActionPane(
+                              motion: ScrollMotion(),
+                              children: [
+                                SlidableAction(
+                                  onPressed: null,
+                                  backgroundColor: Color(0xFFFE4A49),
+                                  foregroundColor: Colors.white,
+                                  icon: Icons.delete,
+                                  label: 'Delete',
+                                ),
+                              ],
+                            ),
+                            child: InkWell(
+                              onTap: (){
+                              },
+                              child: FRUserListCommentTile(
+                                user: _controller.postComments.data[index].user,
+                                title: RichText(
+                                  text: TextSpan(
+                                    text:
+                                    '${_controller.postComments.data[index].user.name} ',
+                                    style: Get.textTheme.button,
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: _controller
+                                            .postComments.data[index].comment,
+                                        style: Get.textTheme.bodyText2,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -179,4 +188,8 @@ _showPopupMenu(index);
   void dispose() {
     _scrollController.dispose();
   }
+}
+
+ void doNothing(BuildContext context) {
+
 }

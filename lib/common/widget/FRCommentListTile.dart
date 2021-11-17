@@ -28,7 +28,7 @@ class FRUserListCommentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 0.5.h),
+      padding: EdgeInsets.symmetric(vertical: 1.5.h),
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 0.0.h, horizontal: 1.2.w),
