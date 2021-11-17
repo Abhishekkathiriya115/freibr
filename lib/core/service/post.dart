@@ -294,4 +294,23 @@ print( postModel.id);
 
     return null;
   }
+  static Future<Map> commentDelete(int id,int commentid) async {
+    String token = await AppSharedPreferences.getToken();
+    Map data = {'post_id': id,'comment_id' : commentid};
+    var requestData = json.encode(data);
+    Map<String, String> userheaders = {
+      "Content-Type": "application/json",
+      'Authorization': "Bearer " + token.replaceAll('"', ''),
+    };
+
+    var url = stringToUri(UrlDto.commentDelete);
+    var response =
+    await http.post(url, body: requestData, headers: userheaders);
+    if (response.statusCode == 200) {
+      var result = json.decode(response.body);
+      return result;
+    }
+
+    return null;
+  }
 }

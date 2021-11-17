@@ -139,4 +139,5 @@ class UrlDto {
   static String postList = apiUrl + 'post/postList';
   static String postDelete = apiUrl + 'post/delete';
   static String postUpdate = apiUrl + 'post/update';
+  static String commentDelete = apiUrl + 'post/delete-comment';
 }

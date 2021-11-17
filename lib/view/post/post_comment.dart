@@ -6,6 +6,7 @@ import 'package:freibr/common/widget/FRTextfield.dart';
 import 'package:freibr/common/widget/statefull_wrapper.dart';
 import 'package:freibr/core/controller/post.dart';
 import 'package:freibr/core/controller/post_comments.dart';
+import 'package:freibr/core/model/post/post_comment.dart';
 import 'package:freibr/core/model/post/post_model.dart';
 import 'package:freibr/util/util.dart';
 import 'package:get/get.dart';
@@ -14,13 +15,14 @@ import 'package:sizer/sizer.dart';
 
 class PostCommentView extends StatelessWidget {
   final PostModel post;
+  final PostComment comment;
   final int index;
   ScrollController _scrollController;
   PostCommentsController _controller;
   PostController postController;
   TextEditingController _textEditingController;
 
-  PostCommentView({Key key, this.post, this.index, this.postController})
+  PostCommentView({Key key, this.post, this.index, this.postController,this.comment})
       : super(key: key);
 
   void fetchMore() {
@@ -35,7 +37,26 @@ class PostCommentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _controller = Provider.of<PostCommentsController>(context);
-
+    void _showPopupMenu(int index) async {
+      final screenSize = MediaQuery.of(context).size;
+      await showMenu(
+        context: context,
+        position: RelativeRect.fromLTRB(100, 100, 0, 0),
+        items: [
+          PopupMenuItem<String>(
+            child: TextButton(
+                onPressed: () {
+                  _controller.commentDelete(this.post.id,_controller.postComments.data[index].id);
+                  print(this.post.id);
+                  print(_controller.postComments.data[index].id);
+                },
+                child: Text('DELETE')),
+            value: 'DELETE',
+          ),
+        ],
+        elevation: 8.0,
+      );
+    }
     return StatefulWrapper(
         onInit: () {
           _scrollController = ScrollController();
@@ -92,20 +113,26 @@ class PostCommentView extends StatelessWidget {
                                     child: frCircularLoader(
                                         height: 30, width: 30)));
                           }
-                          return FRUserListCommentTile(
-                            user: _controller.postComments.data[index].user,
-                            title: RichText(
-                              text: TextSpan(
-                                text:
-                                    '${_controller.postComments.data[index].user.name} ',
-                                style: Get.textTheme.button,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: _controller
-                                        .postComments.data[index].comment,
-                                    style: Get.textTheme.bodyText2,
-                                  ),
-                                ],
+                          return InkWell(
+                            onTap: (){
+print("CLESSSICK");
+_showPopupMenu(index);
+                            },
+                            child: FRUserListCommentTile(
+                              user: _controller.postComments.data[index].user,
+                              title: RichText(
+                                text: TextSpan(
+                                  text:
+                                      '${_controller.postComments.data[index].user.name} ',
+                                  style: Get.textTheme.button,
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: _controller
+                                          .postComments.data[index].comment,
+                                      style: Get.textTheme.bodyText2,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

@@ -39,6 +39,8 @@ import 'core/controller/settings/restricted_accounts.dart';
 
 import 'package:uni_links/uni_links.dart';
 
+import 'view/post/timeline.dart';
+
 void getAppPermissions() async {
   await Permission.camera.request();
   await Permission.microphone.request();

@@ -4,6 +4,7 @@ import 'package:freibr/core/model/paging/paging.dart';
 import 'package:freibr/core/model/post/post_comment.dart';
 import 'package:freibr/core/service/post.dart';
 import 'package:freibr/util/util.dart';
+import 'package:get/get.dart';
 
 class PostCommentsController extends ChangeNotifier {
   bool isLoading = true, isMoreEnabled = true, isFatchingMore = false;
@@ -50,5 +51,24 @@ class PostCommentsController extends ChangeNotifier {
     }
     showToast(message: 'Something went wrong');
     return false;
+  }
+
+  Future<void> commentDelete(int index,int commentId) async {
+    try {
+      showLoadingDialog();
+      Map response =
+      await PostService.commentDelete(index,commentId);
+      if (response != null) {
+        if (response['status']) {
+          showToast(message: response['message']);
+          Get.back();
+          notifyListeners();
+        }
+      } else {
+        showToast(message: 'Something went wrong');
+      }
+    } catch (e) {
+      showToast(message: 'Something went wrong');
+    }
   }
 }
