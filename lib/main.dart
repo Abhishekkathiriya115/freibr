@@ -39,6 +39,7 @@ import 'core/controller/settings/restricted_accounts.dart';
 
 import 'package:uni_links/uni_links.dart';
 
+import 'core/model/user/user.dart';
 import 'view/post/timeline.dart';
 
 void getAppPermissions() async {
@@ -77,7 +78,7 @@ class MyApp extends StatelessWidget {
   String redirectType = '';
   String profileId, conferenceID;
   String postId;
-
+  UserModel user;
   MyApp() {
     _handleIncomingLinks();
     _handleInitialUri();
@@ -245,6 +246,13 @@ class MyApp extends StatelessWidget {
                       userId: profileId,
                     );
                   } else if (redirectType == 'POST') {
+                    // ProfileController controller = Provider.of(context);
+                    return PostTimeline(
+                      isRedirect: true,
+                      user: user,
+                      userId: profileId,
+                      postId: postId,
+                    );
                   } else if (redirectType == 'CONFERENCE') {
                     // String conferenceUrl = UrlDto.conferenceUrl +
                     //     "/?room=${conferenceID}&name=${_controller.authUser.name}&user=${_controller.authUser.id}&avatar=${_controller.authUser.avatar}";

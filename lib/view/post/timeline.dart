@@ -21,9 +21,12 @@ import 'upload_edit.dart';
 
 // ignore: must_be_immutable
 class PostTimeline extends StatelessWidget {
-  PostTimeline({Key key, this.user, this.isMe = false}) : super(key: key);
+  PostTimeline({Key key, this.user, this.isMe = false,this.userId, this.isRedirect = false,this.postId}) : super(key: key);
   int pageSize = 3;
   final UserModel user;
+  final String userId;
+  final String postId;
+  final bool isRedirect;
   final bool isMe;
   @override
   Widget build(BuildContext context) {
@@ -181,12 +184,19 @@ class PostTimeline extends StatelessWidget {
         ),
       );
     }
-
     return StatefulWrapper(
-      onInit: () => Future.delayed(Duration.zero, () {
-        controller.postPagingController.clearItems(clearItems: true);
-        getPosts(isRefresh: true);
-      }),
+      onInit: () {
+        if (this.isRedirect) {
+          Future.microtask(
+                  () => getPosts(isRefresh: true));
+        } else {
+          Future.delayed(Duration.zero, () {
+            controller.postPagingController.clearItems(clearItems: true);
+            getPosts(isRefresh: true);
+          });
+        }
+      },
+
       child: Scaffold(
           appBar: AppBar(
             title: Text('${user.name}(posts)',
