@@ -113,11 +113,11 @@ class SavedPost extends StatelessWidget {
                                 postController: controller));
                           },
                         ),
-                        SizedBox(width: 10.0),
-                        FRIconButton(
-                          icon: Icons.share_outlined,
-                          text: '0',
-                        ),
+                        // SizedBox(width: 10.0),
+                        // FRIconButton(
+                        //   icon: Icons.share_outlined,
+                        //   text: '0',
+                        // ),
                       ],
                     ),
                     IconButton(

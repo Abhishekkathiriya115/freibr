@@ -78,7 +78,7 @@ class PostTimeline extends StatelessWidget {
                     ? () {
                         _showPopupMenu(index);
                       }
-                    : () {},
+                    : null,
                 onTap: () => Get.back(),
               ),
               InkWell(
@@ -153,15 +153,15 @@ class PostTimeline extends StatelessWidget {
                             // ));
                           },
                         ),
-                        SizedBox(width: 10.0),
-                        FRIconButton(
-                          icon: Icons.share_outlined,
-                          text: '0',
-                          onPressed: (){
-                            ShareAPP.shareProfile(
-                                ShareAPP.buildPostShareUrl(postItem.id));
-                          },
-                        ),
+                        // SizedBox(width: 10.0),
+                        // FRIconButton(
+                        //   icon: Icons.share_outlined,
+                        //   text: '0',
+                        //   onPressed: (){
+                        //     ShareAPP.shareProfile(
+                        //         ShareAPP.buildPostShareUrl(postItem.id));
+                        //   },
+                        // ),
                       ],
                     ),
                     IconButton(
